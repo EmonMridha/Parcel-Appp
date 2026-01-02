@@ -2,3 +2,7 @@
 @plugin "daisyui";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "flowbite/src/themes/default";
+
+html, body {
+  background-color: rgb(238, 238, 238)
+}

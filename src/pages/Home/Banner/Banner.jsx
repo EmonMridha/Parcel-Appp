@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 const Banner = () => {
     return (
         <div className='flex justify-center'>
-            <div className='w-150 lg:w-400 md:w-300'>
+            <div className='w-150 lg:w-300 md:w-250'>
                 <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false} showStatus={false}>
                     <div>
                         <img src="/assets/banner/banner1.png" />
