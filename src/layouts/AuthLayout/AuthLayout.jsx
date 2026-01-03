@@ -12,7 +12,7 @@ const AuthLayout = () => {
                         className="max-w-sm rounded-lg shadow-2xl"
                     />
                 </div>
-                <div className='bg-white rounded-4xl'>
+                <div className=' rounded-4xl'>
                     <Outlet />
                 </div>
             </div>
