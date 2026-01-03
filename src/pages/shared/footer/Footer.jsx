@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='px-20'>
-            <footer className="bg-slate-900 text-white text-center py-8 space-y-4">
+        <div className='px-20 my-5 '>
+            <footer className="bg-slate-900 rounded-4xl text-white text-center py-8 space-y-4">
 
                 {/* Company Name */}
                 <div className="text-3xl font-bold">

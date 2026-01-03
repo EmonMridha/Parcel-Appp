@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
 
     return (
-        <nav className="bg-white text-black px-6 py-4 relative">
+        <nav className="bg-white text-black px-6 my-5 mx-10 rounded-2xl py-4 relative">
             <div className="flex items-center justify-between">
 
                 {/* Left */}
@@ -17,9 +18,11 @@ const Navbar = () => {
                         ☰
                     </button>
 
-                    <div className="text-3xl font-bold">
-                        SafeShip
-                    </div>
+                    <Link to='/'>
+                        <div className="text-3xl text-green-600 font-bold">
+                            SafeShip
+                        </div>
+                    </Link>
                 </div>
 
                 {/* Center - Desktop */}
@@ -33,12 +36,16 @@ const Navbar = () => {
 
                 {/* Right - Desktop */}
                 <div className="hidden md:flex gap-4">
-                    <button className="border border-black px-4 py-1 rounded hover:bg-gray hover:text-black">
-                        Sign In
-                    </button>
-                    <button className="bg-sky-400 text-black px-4 py-1 rounded hover:bg-sky-300">
-                        Register
-                    </button>
+                    <Link to='/login' >
+                        <button className="border border-black px-4 py-1 rounded hover:bg-gray hover:text-black">
+                            Sign In
+                        </button>
+                    </Link>
+                    <Link to='/register'>
+                        <button className="bg-sky-400 text-black px-4 py-1 rounded hover:bg-sky-300">
+                            Register
+                        </button>
+                    </Link>
                 </div>
             </div>
 
