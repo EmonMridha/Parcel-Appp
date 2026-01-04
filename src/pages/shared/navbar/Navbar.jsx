@@ -41,9 +41,9 @@ const Navbar = () => {
 
                 {/* Center - Desktop */}
                 <ul className="hidden lg:flex gap-10">
-                    <button><a className="hover:text-sky-400">Home</a></button>
+                    <Link to='/'>Home</Link>
                     <button><a className="hover:text-sky-400">Services</a></button>
-                    <button><a className="hover:text-sky-400">Coverage</a></button>
+                    <Link to='/coverage'>Coverage</Link>
                     <button><a className="hover:text-sky-400">TRackOrder</a></button>
                     <button><a className="hover:text-sky-400">Pricing</a></button>
                     <button><a className="hover:text-sky-400">Be a Rider</a></button>
