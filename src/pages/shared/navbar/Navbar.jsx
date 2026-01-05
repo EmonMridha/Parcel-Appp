@@ -70,9 +70,9 @@ const Navbar = () => {
             {/* Mobile menu */}
             {open && (
                 <ul className="flex flex-col gap-2 items-center bg-white mt-4 py-4 lg:hidden">
-                    <button><a className="hover:text-sky-400">Home</a></button>
+                    <Link to='/'>Home</Link>
                     <button><a className="hover:text-sky-400">Services</a></button>
-                    <button><a className="hover:text-sky-400">Coverage</a></button>
+                    <Link to='/coverage'>Coverage</Link>
                     <button><a className="hover:text-sky-400">TRackOrder</a></button>
                     <button><a className="hover:text-sky-400">Pricing</a></button>
                     <button><a className="hover:text-sky-400">Be a Rider</a></button>
