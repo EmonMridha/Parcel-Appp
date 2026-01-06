@@ -6,16 +6,16 @@ const Coverage = () => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-        <div className='m-10 bg-white p-20 rounded-2xl'>
+        <div className='m-2 md:m-10 lg: bg-white lg:p-20 p-5 rounded-2xl'>
             <h1 className='lg:text-4xl text-2xl text-green-900 font-bold'>We are available in 64 districts</h1>
 
-            <div className='md:w-150 w-70 mt-5'>
+            <div className='md:w-150 w-full mt-5'>
                 <label className="relative block">
 
                     <input
                         type="text"
                         value={searchValue}
-                        onChange={(e)=>setSearchValue(e.target.value)}
+                        onChange={(e) => setSearchValue(e.target.value)}
                         className="peer w-full rounded-xl border border-gray-300 bg-white px-4 pt-6 pb-2 text-gray-900 
              shadow-sm outline-none transition-all duration-200
              focus:border-blue-900 focus:ring-2 focus:ring-blue-200"

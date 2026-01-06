@@ -40,7 +40,7 @@ const Map = ({ searchValue }) => {
     const centerPosition = [23.8103, 90.4125];
 
     return (
-        <div className='w-100 md:w-170 lg:w-240'>
+        <div className='w-50 md:w-170 lg:w-240'>
             <MapContainer
                 center={centerPosition}
                 zoom={7}
