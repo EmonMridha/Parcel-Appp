@@ -7,6 +7,7 @@ import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
 import Coverage from "../pages/coverage/Coverage";
 import AddParcel from "../pages/AppParcel/AddParcel";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
     {
@@ -18,27 +19,35 @@ export const router = createBrowserRouter([
                 Component: Home
             },
             {
-                path:'coverage',
-                Component:Coverage
+                path: 'coverage',
+                Component: Coverage
             },
             {
-                path:'addParcel',
-                Component:AddParcel
+                path: 'addParcel',
+                Component: AddParcel
             }
         ]
     },
     {
-        path:'/',
-        Component:AuthLayout,
-        children:[
+        path: 'auth',
+        Component: AuthLayout,
+        children: [
             {
-                path:'login',
-                Component:Login
+                path: 'login',
+                Component: Login
             },
             {
-                path:'register',
-                Component:Register
+                path: 'register',
+                Component: Register
             }
         ]
+    },
+    {
+        path: '/dashboard',
+        element: <DashboardLayout></DashboardLayout>,
+        children:[
+
+        ]
+
     }
 ]);

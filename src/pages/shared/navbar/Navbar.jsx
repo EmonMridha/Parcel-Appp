@@ -38,6 +38,11 @@ const Navbar = () => {
           <Link to="/">Home</Link>
           <Link to="/services">Services</Link>
           <Link to="/coverage">Coverage</Link>
+
+          {
+            user && <Link to='/dashboard' >Dashboard</Link>
+          }
+
           <Link to="/track">Track Order</Link>
           <Link to="/pricing">Pricing</Link>
           <Link to="/rider">Be a Rider</Link>
@@ -60,10 +65,10 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="hidden lg:flex gap-3">
-            <Link to="/login" className="btn btn-outline btn-accent">
+            <Link to="/auth/login" className="btn btn-outline btn-accent">
               Login
             </Link>
-            <Link to="/register" className="btn btn-outline btn-info">
+            <Link to="/auth/register" className="btn btn-outline btn-info">
               Register
             </Link>
           </div>
@@ -77,15 +82,21 @@ const Navbar = () => {
           <Link to="/services" onClick={() => setOpen(false)}>Services</Link>
           <Link to="/coverage" onClick={() => setOpen(false)}>Coverage</Link>
           <Link to="/track" onClick={() => setOpen(false)}>Track Order</Link>
+
+          {
+            user && <Link to='/dashboard' onClick={() => setOpen(false)}>Dashboard</Link>
+
+          }
+
           <Link to="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
           <Link to="/rider" onClick={() => setOpen(false)}>Be a Rider</Link>
 
           {!user && (
             <div className="flex gap-3 mt-2">
-              <Link to="/login" className="btn btn-outline btn-accent btn-sm">
+              <Link to="/auth/login" className="btn btn-outline btn-accent btn-sm">
                 Login
               </Link>
-              <Link to="/register" className="btn btn-outline btn-info btn-sm">
+              <Link to="/auth/register" className="btn btn-outline btn-info btn-sm">
                 Register
               </Link>
             </div>
