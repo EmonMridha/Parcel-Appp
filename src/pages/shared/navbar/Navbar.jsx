@@ -40,10 +40,10 @@ const Navbar = () => {
           <Link to="/coverage">Coverage</Link>
 
           {
-            user && <Link to='/dashboard' >Dashboard</Link>
+            user && <Link to={`/dashboard`} >Dashboard</Link>
           }
 
-          <Link to="/track">Track Order</Link>
+
           <Link to="/pricing">Pricing</Link>
           <Link to="/rider">Be a Rider</Link>
         </ul>

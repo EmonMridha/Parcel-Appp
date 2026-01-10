@@ -2,8 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAuth from '../../Hooks/useAuth';
+
 
 const AddParcel = () => {
+
+  const { user } = useAuth()
+
   const {
     register,
     handleSubmit,
@@ -13,14 +18,19 @@ const AddParcel = () => {
   const axiosSEcure = useAxiosSecure();
 
   const same = (formData) => {
-    axiosSEcure.post('/parcels', formData)
+
+    const parcelData = {
+      ...formData,
+      userEmail: user?.email
+    }
+    axiosSEcure.post('/parcels', parcelData)
       .then(res => {
-        console.log(res.data);
+
         if (res.data.insertedId) {
-          Swal.fire({position:'top-end',icon:'success',title:'Posted Successfully'})
+          Swal.fire({ position: 'center', icon: 'success', title: 'Parcel added successfully' })
         }
         else {
-          Swal.fire({position:'top-end', icon:'error',title:'Error occurred'})
+          Swal.fire({ position: 'center', icon: 'error', title: 'Error occurred' })
         }
       })
   }
@@ -55,7 +65,7 @@ const AddParcel = () => {
 
           <div className="flex flex-col w-full">
             <label className="mb-2 text-gray-700 font-semibold">
-              Parcel Weight
+              Parcel Weight (kg)
             </label>
             <input
               type="number"
