@@ -9,7 +9,7 @@ const ParcelDetails = () => {
         <div>
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">
-                    📦 Parcel Details 
+                    📦 Parcel Details
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

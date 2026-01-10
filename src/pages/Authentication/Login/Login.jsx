@@ -2,12 +2,16 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const Login = () => {
     const { signIn, googleSignUp } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname||'/'; // If user tried to go to a page before login send him there. If didn't tried to go then send him to the home
+
     const onSubmit = (data) => {
         signIn(data.email, data.password)
             .then(res => {
@@ -18,6 +22,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                navigate(from)
             })
             .catch(error => {
                 Swal.fire({
@@ -40,7 +45,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                navigate('/');
+                navigate(from);
             })
             .catch(error => {
                 Swal.fire({

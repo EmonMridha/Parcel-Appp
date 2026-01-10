@@ -10,6 +10,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
 import ParcelDetails from "../pages/ParcelDetails/ParcelDetails";
+import PrivateRouter from "../pages/PrivateRouter/PrivateRouter";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         Component: RootLayuot,
         children: [
             {
-                index: true, 
+                index: true,
                 Component: Home // This is the default child route for RootLayout
             },
             {
@@ -46,11 +47,15 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        Component: DashboardLayout,
+        Component: () => (
+            <PrivateRouter>
+                <DashboardLayout />
+            </PrivateRouter>
+        ),
         children: [
             {
-                index:true,
-                Component:DashboardHome
+                index: true,
+                Component: DashboardHome
             },
             {
                 path: `myParcels/:email`,
@@ -58,9 +63,9 @@ export const router = createBrowserRouter([
                 Component: MyParcels
             },
             {
-                path:'parcelDetails/:id',
-                loader:({params})=> fetch(`http://localhost:5000/parcel/${params.id}`),
-                Component:ParcelDetails
+                path: 'parcelDetails/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`),
+                Component: ParcelDetails
             }
         ]
 

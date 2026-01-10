@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const MyParcels = () => {
-    const myParcels = useLoaderData();
+    const loadedParcels = useLoaderData();
+    const [myParcels,setMyParcels] = useState(loadedParcels);
     const axios = useAxiosSecure();
 
     const handleDelete = (id) => {
@@ -12,6 +13,8 @@ const MyParcels = () => {
             .then(res => {
                 if (res.data.deletedCount > 0) {
                     Swal.fire('Deleted Successfully')
+                    const remainingParcels = myParcels.filter(parcel=>parcel._id !== id);
+                    setMyParcels(remainingParcels)
                 }
                 else {
                     Swal.fire('Could not delete')
