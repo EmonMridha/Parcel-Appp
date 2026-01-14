@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useNavigate } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const MyParcels = () => {
     const loadedParcels = useLoaderData();
-    const [myParcels,setMyParcels] = useState(loadedParcels);
+    const [myParcels, setMyParcels] = useState(loadedParcels);
     const axios = useAxiosSecure();
+    const navigate = useNavigate()
 
     const handleDelete = (id) => {
         axios.delete(`/delete/${id}`)
             .then(res => {
                 if (res.data.deletedCount > 0) {
                     Swal.fire('Deleted Successfully')
-                    const remainingParcels = myParcels.filter(parcel=>parcel._id !== id);
+                    const remainingParcels = myParcels.filter(parcel => parcel._id !== id);
                     setMyParcels(remainingParcels)
                 }
                 else {
                     Swal.fire('Could not delete')
                 }
             })
+    }
+
+    const handlePay = (id) => {
+        navigate(`/dashboard/payment/${id}`)
     }
 
     return (
@@ -49,7 +54,7 @@ const MyParcels = () => {
                                         <td class="py-3 px-6">
                                             <div className='flex gap-2'>
                                                 <Link to={`/dashboard/parcelDetails/${parcel._id}`}><button className="btn btn-neutral">View</button></Link>
-                                                <button className="btn btn-success">Pay</button>
+                                                <button onClick={()=>handlePay(parcel._id)} className="btn btn-success">Pay</button>
                                                 <button onClick={() => handleDelete(parcel._id)} className="btn btn-warning">Delete</button>
                                             </div>
                                         </td>

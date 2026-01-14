@@ -21,7 +21,8 @@ const AddParcel = () => {
 
     const parcelData = {
       ...formData,
-      userEmail: user?.email
+      userEmail: user?.email,
+      cost: 100
     }
     axiosSEcure.post('/parcels', parcelData)
       .then(res => {
