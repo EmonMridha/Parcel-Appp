@@ -30,6 +30,7 @@ const PaymentForm = () => {
     }
 
     const amount = parcelInfo.cost
+    const amountInCents = amount * 100; // stripe works with cents
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,12 +53,37 @@ const PaymentForm = () => {
             setSuccess('')
             setError(error.message)
         }
+
         else {
             setError('')
             console.log('payment method', paymentMethod);
             setSuccess('Payment Successfully done! Please take an screenshot and keep it safe!')
         }
+
+        // create payment intent
+        const res = await axiosSecure.post('/create-payment-intent', { amountInCents, id }) // we are sending amount to backend to create payment intent and saving the client secret here
+
+        const clientSecret = res.data.clientSecret;
+
+        const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: 'Jenny Rosen',
+                },
+            },
+        });
+
+        if (result.error) {
+            console.log(result.error.message);
+        } else {
+            if (result.paymentIntent.status === 'succeeded') {
+                console.log('payment intent', result.paymentIntent);
+            }
+        }
+        console.log('res form intent', res);
     }
+
     return (
         <div className='flex justify-center my-10'>
             <div className='max-w-md'>
