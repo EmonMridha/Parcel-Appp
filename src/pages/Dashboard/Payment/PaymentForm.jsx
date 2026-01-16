@@ -56,32 +56,37 @@ const PaymentForm = () => {
 
         else {
             setError('')
-            console.log('payment method', paymentMethod);
-            setSuccess('Payment Successfully done! Please take an screenshot and keep it safe!')
-        }
+            // console.log('payment method', paymentMethod);
+            // setSuccess('Payment Successfully done! Please take an screenshot and keep it safe!')
 
-        // create payment intent
-        const res = await axiosSecure.post('/create-payment-intent', { amountInCents, id }) // we are sending amount to backend to create payment intent and saving the client secret here
+            // create payment intent
+            const res = await axiosSecure.post('/create-payment-intent', { amountInCents, id }) // we are sending amount to backend to create payment intent and saving the client secret here
 
-        const clientSecret = res.data.clientSecret;
+            const clientSecret = res.data.clientSecret;
 
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement),
-                billing_details: {
-                    name: 'Jenny Rosen',
+            // Confirm card payment
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
                 },
-            },
-        });
+            });
 
-        if (result.error) {
-            console.log(result.error.message);
-        } else {
-            if (result.paymentIntent.status === 'succeeded') {
-                console.log('payment intent', result.paymentIntent);
+            if (result.error) {
+                setError(result.error.message);
             }
+
+            else {
+                setError('');
+                if (result.paymentIntent.status === 'succeeded') {
+                    console.log('payment intent', result.paymentIntent);
+                }
+            }
+            console.log('res form intent', res);
         }
-        console.log('res form intent', res);
+
     }
 
     return (
