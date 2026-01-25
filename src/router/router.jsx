@@ -11,7 +11,6 @@ import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
 import ParcelDetails from "../pages/ParcelDetails/ParcelDetails";
 import PrivateRouter from "../pages/PrivateRouter/PrivateRouter";
-import Payment from "../pages/Dashboard/Payment/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -28,7 +27,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'addParcel',
-                Component: AddParcel
+                Component: () => (
+                    <PrivateRouter>
+                        <AddParcel />
+                    </PrivateRouter>
+                )
             }
         ]
     },
@@ -68,10 +71,7 @@ export const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`),
                 Component: ParcelDetails
             },
-            {
-             path:'payment/:id',
-             Component:Payment
-            }
+            
         ]
 
     }

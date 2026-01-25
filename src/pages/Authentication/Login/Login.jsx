@@ -8,9 +8,9 @@ const Login = () => {
     const { signIn, googleSignUp } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const location = useLocation();
+    const location = useLocation(); // saving the path where the user tried to go before login
 
-    const from = location.state?.from?.pathname||'/'; // If user tried to go to a page before login send him there. If didn't tried to go then send him to the home
+    const from = location.state?.from ||'/'; // If user tried to go to a page before login send him there. If didn't tried to go then send him to the home
 
     const onSubmit = (data) => {
         signIn(data.email, data.password)
