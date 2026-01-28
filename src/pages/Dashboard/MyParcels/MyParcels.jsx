@@ -55,7 +55,9 @@ const MyParcels = () => {
                                         <td class="py-3 px-6">
                                             <div className='flex gap-2'>
                                                 <Link to={`/dashboard/parcelDetails/${parcel._id}`}><button className="btn btn-neutral">View</button></Link>
-                                                <button onClick={() => handlePay(parcel._id)} className="btn btn-success">Pay</button>
+                                                {
+                                                    parcel.paymentStatus === 'unpaid' ? (<button onClick={() => handlePay(parcel._id)} className="btn bg-red-500 border-none">Pay</button>):(<p className='w-15 rounded-sm p-2 text-center bg-green-600 h-10 font-bold'>Paid</p>)
+                                                }
                                                 <button onClick={() => handleDelete(parcel._id)} className="btn btn-warning">Delete</button>
                                             </div>
                                         </td>

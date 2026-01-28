@@ -2,6 +2,9 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import useAuth from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 
 const PaymentForm = ({ parcelId }) => {
@@ -11,6 +14,8 @@ const PaymentForm = ({ parcelId }) => {
     const [parcel, setParcel] = useState(null);
     const [error, setError] = useState('')
     const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
+    const navigate = useNavigate();
 
 
     // Fetch parcel info using parcelId
@@ -22,8 +27,9 @@ const PaymentForm = ({ parcelId }) => {
         }
     });
 
-    console.log(parcelInfo);
+
     const amount = parcelInfo.cost || 0;
+    const amountInCents = amount * 100;
 
 
     useEffect(() => {
@@ -45,24 +51,76 @@ const PaymentForm = ({ parcelId }) => {
             return;
         }
 
-        const card = elements.getElement(CardElement);
+        const card = elements.getElement(CardElement); // getting the card data
 
         if (!card) {
             return;
         }
 
+        // create payment method
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card', // Specify the payment method type
             card: card
         })
 
         if (error) {
-            console.log('error', error.message);
             setError(error.message);
         }
 
+        // create payment intent
+        const res = await axiosSecure.post('/create-payment-intent', { amount: amountInCents });
+
+        // confirm card payment with client_secret and cardElement
+        const result = await stripe.confirmCardPayment(res.data.clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: user?.displayName,
+                    email: user?.email
+                }
+            }
+        })
+
+        if (result.error) {
+            setError(result.error.message);
+        }
+
         else {
-            console.log('payment method', paymentMethod);
+            if (result.paymentIntent.status === 'succeeded') {
+
+                const paymentData = {
+                    parcelId,
+                    email: user?.email,
+                    amount,
+                    transactionId: result.paymentIntent.id,
+                    paymentMethod: result.paymentIntent.payment_method_types[0],
+                }
+
+                try {
+                    const paymentRes = await axiosSecure.post('/payments', paymentData);
+
+                    if (paymentRes.data.success) {
+                        Swal.fire({
+                            title: 'Payment Successful!',
+                            text: paymentRes.data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                        navigate(`/dashboard/myParcels/${user?.email}`); // Redirect to MyParcels after successful payment
+                    }
+                }
+                // any status more than 400 will be treated as error and will be caught in catch block
+                catch (error) {
+                    const msg = error.response?.data?.message;
+
+                    Swal.fire({
+                        title: 'Payment Failed!',
+                        text: msg,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            }
         }
     }
 

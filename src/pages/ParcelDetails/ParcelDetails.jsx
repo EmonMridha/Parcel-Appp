@@ -46,6 +46,7 @@ const ParcelDetails = () => {
 
                 </div>
             </div>
+            <p className="text-center bg-amber-400 text-gray-700 font-bold">Payment Status: <b>{parcel.paymentStatus}</b></p>
         </div>
 
     );
