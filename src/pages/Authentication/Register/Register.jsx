@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
 import { updateProfile } from 'firebase/auth';
 import { auth } from '../../../firebase/firebase.init';
 import { Link, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, googleSignUp } = useAuth();
     const navigate = useNavigate();
+    const [profilePic, setProfilePic] = useState('');
+    const axiosSecure = useAxiosSecure();
 
     const onSubmit = (data) => { // Here data contains all form data. Tis is different
-        console.log(data);
+
         createUser(data.email, data.password)
-            .then(result => {
-                updateProfile(auth.currentUser, {
+            .then(async (result) => {
+                await updateProfile(auth.currentUser, {
 
                     displayName: data.name,
-                    photoURL: data.image
+                    photoURL: profilePic
                 })
+
+                // saving user to the database
+                const userInfo = {
+                    email: data.email,
+                    role: 'user', // default role
+                    created_At: new Date().toISOString()
+                }
+
+                const userRes = await axiosSecure.post('/users', userInfo)
+                console.log(userRes.data);
+
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -27,8 +42,9 @@ const Register = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+
                 navigate('/');
-                console.log(result.user);
+
             })
             .catch(error => {
                 Swal.fire('error occured during registration')
@@ -52,6 +68,16 @@ const Register = () => {
                 Swal.fire('error occured during registration')
             })
     }
+
+    const handleImageUpload = async (e) => {
+        const image = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', image); // entering the image in the formData
+
+        const res = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`, formData)
+
+        setProfilePic(res.data.data.url);
+    }
     return (
         <div>
             <div className='text-black  h-100 p-10'>
@@ -59,23 +85,23 @@ const Register = () => {
                 <form className='bg-white p-10 rounded-2xl' onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
 
-                        <label className="label text-neutral-950 text-xl">Profile Picture</label>
-                        <input
-                            type="url" className='h-10 p-2 bg-amber-50' placeholder='photoURL'
-                            {...register('image', { required: true })}
-                        />
-                        {errors.image && <p className='text-red-700'>Image is required</p>}
 
+                        {/* File Upload Input */}
+                        <label className='label text-neutral-950 text-xl '>Your Image</label>
+                        <input type="file" onChange={handleImageUpload}
+                            className='input bg-amber-50' placeholder='Your Profile picture' />
 
+                        {/* name */}
                         <label className="label text-black text-xl">Full Name</label>
                         <input placeholder='Full Name' className='h-10 bg-amber-50 p-2' type="text"  {...register('name', { required: true })} />
                         {errors.name?.type === 'required' && <p className='text-red-700'>Name is required</p>}
 
+                        {/* email */}
                         <label className="label text-neutral-950 text-xl">Email</label>
                         <input className='h-10 p-2 bg-amber-50' type="email" placeholder="Email" {...register('email', { required: true })} />
                         {errors.email?.type === 'required' && <p className='text-red-700'>Email is required</p>}
 
-
+                        {/* password */}
                         <label className="label text-neutral-950 text-xl">Password</label>
                         <input className='h-10 p-2 bg-amber-50' type="password" placeholder="Password" {...register('password', { required: true, minLength: 6 })} />
                         {errors.password?.type === 'required' && <p className='text-red-700'>Password is required</p>}

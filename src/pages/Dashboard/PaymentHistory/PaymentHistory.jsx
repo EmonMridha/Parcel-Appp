@@ -23,7 +23,7 @@ const PaymentHistory = () => {
                             <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                                 Amount
                             </th>
-                        </tr>
+                        </tr> 
                     </thead>
 
                     <tbody class="divide-y">
@@ -32,7 +32,7 @@ const PaymentHistory = () => {
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-3 text-sm text-gray-600">{payment.parcelId}</td>
                                     <td class="px-4 py-3 text-sm text-gray-600">{payment.transactionId}</td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">{payment.createdAt}</td>
+                                    <td class="px-4 py-3 text-sm text-gray-600">{payment.createdAt.toLocaleString()}</td>
                                     <td class="px-4 py-3 text-sm font-medium">৳{payment.amount}</td>
                                 </tr>
                             ))
