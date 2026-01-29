@@ -43,6 +43,7 @@ const DashboardLayout = () => {
                     {/* Sidebar content here */}
                     <li><Link to='/'>Home</Link></li>
                     <li><Link to={`/dashboard/myParcels/${user?.email}`}>My Parcels</Link></li>
+                    <li><Link to={`/dashboard/paymentHistory/${user?.email}`}>Payment History</Link></li>
                 </ul>
             </div>
         </div>

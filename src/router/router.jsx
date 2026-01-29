@@ -12,6 +12,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome";
 import ParcelDetails from "../pages/ParcelDetails/ParcelDetails";
 import PrivateRouter from "../pages/PrivateRouter/PrivateRouter";
 import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -75,6 +76,11 @@ export const router = createBrowserRouter([
             {
                 path: 'payment/:parcelId',
                 Component: Payment
+            },
+            {
+                path: 'paymentHistory/:email',
+                loader: ({params}) => fetch(`http://localhost:5000/payments/${params.email}`),
+                Component: PaymentHistory
             }
 
         ]
