@@ -27,7 +27,7 @@ const Register = () => {
 
                 // saving user to the database
                 const userInfo = {
-                    email: data.email,
+                    email: result.user.email,
                     role: 'user', // default role
                     created_At: new Date().toISOString()
                 }
@@ -47,14 +47,27 @@ const Register = () => {
 
             })
             .catch(error => {
-                Swal.fire('error occured during registration')
+                Swal.fire('error occurred during registration')
             })
     }
 
     const handleGoogleSignIn = () => {
         // Implement Google Sign-In functionality here
         googleSignUp()
-            .then(result => {
+            .then(async (result) => {
+
+                const data = result.user;
+
+                // saving user to the database
+                const userInfo = {
+                    email: data.email,
+                    role: 'user', // default role
+                    created_At: new Date().toISOString()
+                }
+
+                const userRes = await axiosSecure.post('/users', userInfo)
+                console.log(userRes.data);
+
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -65,7 +78,7 @@ const Register = () => {
                 navigate('/');
             })
             .catch(error => {
-                Swal.fire('error occured during registration')
+                Swal.fire('error occurred during registration')
             })
     }
 
