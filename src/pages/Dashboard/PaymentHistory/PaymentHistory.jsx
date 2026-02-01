@@ -1,8 +1,21 @@
-import React from 'react';
-import { useLoaderData } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import useAuth from '../../../Hooks/useAuth';
 
 const PaymentHistory = () => {
-    const payments = useLoaderData();
+    const [payments, setPayments] = useState([])
+    const axios = useAxiosSecure();
+    const { user } = useAuth()
+
+    useEffect(() => {
+        if (!user.email) { return; }
+
+        const fetchPayments = async () => {
+            const loadedPayments = await axios.get(`/payments`)
+            setPayments(loadedPayments.data)
+        }
+        fetchPayments();
+    }, [user, axios])
 
     return (
         <div className='text-black my-10 px-5'>
@@ -23,7 +36,7 @@ const PaymentHistory = () => {
                             <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                                 Amount
                             </th>
-                        </tr> 
+                        </tr>
                     </thead>
 
                     <tbody class="divide-y">

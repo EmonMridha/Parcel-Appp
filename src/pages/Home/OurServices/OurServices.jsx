@@ -3,7 +3,7 @@ import React from 'react';
 const OurServices = () => {
     return (
         <div className='p-10'> 
-            <section class="py-16 bg-gray-50 rounded-2xl">
+            <section class="py-16 bg-seashell rounded-2xl">
                 <div class="max-w-7xl mx-auto px-4">
 
                     <div class="text-center mb-12">

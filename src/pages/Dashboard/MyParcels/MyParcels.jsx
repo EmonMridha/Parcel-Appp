@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
-import { Link, useLoaderData, useNavigate } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useAuth from '../../../Hooks/useAuth';
 
 const MyParcels = () => {
-    const loadedParcels = useLoaderData();
-    const [myParcels, setMyParcels] = useState(loadedParcels);
+
     const axios = useAxiosSecure();
+    const [myParcels, setMyParcels] = useState([]);
+    const { user } = useAuth();
     const navigate = useNavigate();
+
+    // useEffect will run when page mounts first and dependency changes
+    useEffect(() => {
+
+        if (!user?.email) {
+            return;
+        }
+
+        const fetchPosts = async () => {
+
+            const res = await axios.get(`/parcels`, {
+                headers: {
+                    Authorization: `Bearer ${user.accessToken}`
+                }
+            })
+
+            setMyParcels(res.data)
+        }
+        fetchPosts();
+    }, [user, axios])
+
 
     const handlePay = (id) => {
         navigate(`/dashboard/payment/${id}`)
@@ -26,7 +49,6 @@ const MyParcels = () => {
                 }
             })
     }
-
 
     return (
         <div >
@@ -56,7 +78,7 @@ const MyParcels = () => {
                                             <div className='flex gap-2'>
                                                 <Link to={`/dashboard/parcelDetails/${parcel._id}`}><button className="btn btn-neutral">View</button></Link>
                                                 {
-                                                    parcel.paymentStatus === 'unpaid' ? (<button onClick={() => handlePay(parcel._id)} className="btn bg-red-500 border-none">Pay</button>):(<p className='w-15 rounded-sm p-2 text-center bg-green-600 h-10 font-bold'>Paid</p>)
+                                                    parcel.paymentStatus === 'unpaid' ? (<button onClick={() => handlePay(parcel._id)} className="btn bg-red-500 border-none">Pay</button>) : (<p className='w-15 rounded-sm p-2 text-center bg-green-600 h-10 font-bold'>Paid</p>)
                                                 }
                                                 <button onClick={() => handleDelete(parcel._id)} className="btn btn-warning">Delete</button>
                                             </div>

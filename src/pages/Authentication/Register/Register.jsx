@@ -33,7 +33,7 @@ const Register = () => {
                 }
 
                 const userRes = await axiosSecure.post('/users', userInfo)
-                console.log(userRes.data);
+
 
                 Swal.fire({
                     position: "top-end",

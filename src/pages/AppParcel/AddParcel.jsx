@@ -2,12 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
-import useAuth from '../../Hooks/useAuth';
 
 
 const AddParcel = () => {
-
-  const { user } = useAuth()
 
   const {
     register,
@@ -21,9 +18,6 @@ const AddParcel = () => {
 
     const parcelData = {
       ...formData,
-      userEmail: user?.email,
-      cost: 100,
-      paymentStatus: 'unpaid'
     }
     axiosSEcure.post('/parcels', parcelData)
       .then(res => {

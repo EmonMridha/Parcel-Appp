@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'paymentHistory/:email',
-                loader: ({params}) => fetch(`http://localhost:5000/payments/${params.email}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/payments/${params.email}`),
                 Component: PaymentHistory
             }
 
