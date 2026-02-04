@@ -45,7 +45,7 @@ const Navbar = () => {
 
 
           <Link to="/addParcel">Add Parcel</Link>
-          <Link to="/rider">Be a Rider</Link>
+          <Link to="/beArider">Be a Rider</Link>
         </ul>
 
         {/* Right */}
@@ -89,7 +89,7 @@ const Navbar = () => {
           }
 
           <Link to="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
-          <Link to="/rider" onClick={() => setOpen(false)}>Be a Rider</Link>
+          <Link to="/beArider" onClick={() => setOpen(false)}>Be a Rider</Link>
 
           {!user && (
             <div className="flex gap-3 mt-2">

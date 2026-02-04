@@ -13,6 +13,7 @@ import ParcelDetails from "../pages/ParcelDetails/ParcelDetails";
 import PrivateRouter from "../pages/PrivateRouter/PrivateRouter";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import BeARider from "../pages/Rider/BeARider";
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +33,14 @@ export const router = createBrowserRouter([
                 Component: () => (
                     <PrivateRouter>
                         <AddParcel />
+                    </PrivateRouter>
+                )
+            },
+            {
+                path: 'beArider',
+                Component: () => (
+                    <PrivateRouter>
+                        <BeARider></BeARider>
                     </PrivateRouter>
                 )
             }
