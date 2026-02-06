@@ -14,6 +14,7 @@ import PrivateRouter from "../pages/PrivateRouter/PrivateRouter";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import BeARider from "../pages/Rider/BeARider";
+import RiderRequests from "../pages/Dashboard/Requests/RiderRequests";
 
 export const router = createBrowserRouter([
     {
@@ -90,6 +91,14 @@ export const router = createBrowserRouter([
                 path: 'paymentHistory/:email',
                 loader: ({ params }) => fetch(`http://localhost:5000/payments/${params.email}`),
                 Component: PaymentHistory
+            },
+            {
+                path: 'rider/requests',
+                Component: () => (
+                    <PrivateRouter>
+                        <RiderRequests></RiderRequests>
+                    </PrivateRouter>
+                )
             }
 
         ]

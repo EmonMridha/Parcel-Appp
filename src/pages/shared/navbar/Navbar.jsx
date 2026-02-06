@@ -36,7 +36,7 @@ const Navbar = () => {
         {/* Center - Desktop */}
         <ul className="hidden lg:flex gap-8 font-medium">
           <Link to="/">Home</Link>
-          <Link to="/services">Services</Link>
+          <Link to="/dashboard/rider/requests">Services</Link>
           <Link to="/coverage">Coverage</Link>
 
           {
@@ -79,7 +79,7 @@ const Navbar = () => {
       {open && (
         <ul className="lg:hidden flex flex-col items-center gap-4 mt-4 py-4 border-t">
           <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-          <Link to="/services" onClick={() => setOpen(false)}>Services</Link>
+          <Link to="/dashboard/rider/requests" onClick={() => setOpen(false)}>Services</Link>
           <Link to="/coverage" onClick={() => setOpen(false)}>Coverage</Link>
           <Link to="/track" onClick={() => setOpen(false)}>Track Order</Link>
 

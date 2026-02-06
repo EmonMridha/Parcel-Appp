@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import useAuth from '../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const BeARider = () => {
 
-    const [loading, setLoading] = useState(false);
+    const axios = useAxiosSecure();
+    const { user } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
 
         const form = e.target;
         const riderData = {
             name: form.name.value,
-            email: form.email.value,
             phone: form.phone.value,
             city: form.city.value,
             vehicle: form.vehicle.value,
@@ -19,7 +20,29 @@ const BeARider = () => {
             experience: form.experience.value,
         };
 
-        
+
+        try {
+            const res = await axios.post('/riderReqs', riderData, {
+                headers: {
+                    authorization: `Bearer ${user.accessToken}`
+                }
+            })
+
+            if (res.data.insertedId) {
+                Swal.fire('Success','Data added successfully.  Please wait until an admin accepts your request') 
+            }
+
+        } catch (error) {
+            if (error.response) {
+                if (error.response.status === 409) {
+                    Swal.fire('Info', error.response.data.message, 'info'); // Receiving the message from backend line 132
+                } else {
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                }
+            } else {
+                Swal.fire('Error', 'Could not connect to server')
+            }
+        }
     };
 
     return (
@@ -37,11 +60,6 @@ const BeARider = () => {
                     <div>
                         <label className="block text-black font-medium mb-1">Full Name</label>
                         <input name="name" type="text" required className="border-2 border-gray-600" />
-                    </div>
-
-                    <div>
-                        <label className="block text-black font-medium mb-1">Email Address</label>
-                        <input name="email" type="email" required className="border-gray-600 border-2" />
                     </div>
 
                     <div>
@@ -80,10 +98,9 @@ const BeARider = () => {
 
                     <button
                         type="submit"
-                        disabled={loading}
                         className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition"
                     >
-                        {loading ? "Submitting..." : "Apply as Rider"}
+                        submit
                     </button>
                 </form>
             </div>

@@ -29,7 +29,7 @@ const MyParcels = () => {
             setMyParcels(res.data)
         }
         fetchPosts();
-    }, [user, axios])
+    }, [user, axios]) // Dependencies are those who are used in useEffect but not defined in useEffect
 
 
     const handlePay = (id) => {
