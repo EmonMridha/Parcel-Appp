@@ -15,6 +15,7 @@ import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import BeARider from "../pages/Rider/BeARider";
 import RiderRequests from "../pages/Dashboard/Requests/RiderRequests";
+import HiredRiders from "../pages/Dashboard/Hired/HiredRiders";
 
 export const router = createBrowserRouter([
     {
@@ -97,6 +98,14 @@ export const router = createBrowserRouter([
                 Component: () => (
                     <PrivateRouter>
                         <RiderRequests></RiderRequests>
+                    </PrivateRouter>
+                )
+            },
+            {
+                path: 'rider/hired',
+                Component: () => (
+                    <PrivateRouter>
+                        <HiredRiders></HiredRiders>
                     </PrivateRouter>
                 )
             }

@@ -24,7 +24,7 @@ const BeARider = () => {
         try {
             const res = await axios.post('/riderReqs', riderData, {
                 headers: {
-                    authorization: `Bearer ${user.accessToken}`
+                    authorization: `Bearer ${user?.accessToken}`
                 }
             })
 

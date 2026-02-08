@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import useAuth from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const RiderRequests = () => {
 
@@ -10,16 +11,37 @@ const RiderRequests = () => {
 
     useEffect(() => {
         const fetchRequests = async () => {
-            const response = await axios.get('/riderReqs', {
-                headers: {
-                    Authorization: `Bearer ${user?.accessToken}`
-                }
-            })
+            const response = await axios.get('/riderReqs')
 
             setRequests(response.data)
         }
         fetchRequests();
     }, [axios, user]) // Dependencies are those who are used in useEffect but not defined in useEffect
+
+    const handleHire = async (id) => {
+
+        try {
+            const res = await axios.patch(`/riders/${id}`);
+            if (res.data.success) {
+                Swal.fire('success', 'Hired successfully');
+            } else {
+                Swal.fire('error', 'Already hired or not found');
+            }
+        }
+        // catch will run when any error or any 400+ status is thrown
+        catch (err) {
+            Swal.fire('error', err.response?.data?.message || 'Something went wrong');
+        }
+    }
+
+    const handleDelete = async (id) => {
+        const res = await axios.delete(`/deleteReq/${id}`)
+        if (res.data.success) {
+            Swal.fire('Deleted successfully')
+        } else {
+            Swal.fire('Could not delete')
+        }
+    }
 
     return (
         <div>
@@ -49,10 +71,11 @@ const RiderRequests = () => {
                                                 <td class="px-4 py-3 text-sm text-gray-800">{request.phone}</td>
                                                 <td class="px-4 py-3 text-sm text-gray-800 font-medium">{request.createdAt}</td>
                                                 <td class="px-4 py-3 text-sm">
-                                                    <button class="px-3 py-1 mr-2 text-xs font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
-                                                        View
+
+                                                    <button onClick={() => handleHire(request._id)} className="px-3 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-red-700">
+                                                        {request.status === 'hired' ? ('Hired') : ('Hire')}
                                                     </button>
-                                                    <button class="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700">
+                                                    <button onClick={() => handleDelete(request._id)} className="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700">
                                                         Delete
                                                     </button>
                                                 </td>
@@ -66,8 +89,6 @@ const RiderRequests = () => {
                 ) : (<div className='text-red-600 text-center text-2xl my-10'>Only admin can see this</div>)
             }
         </div>
-
-
     );
 };
 
