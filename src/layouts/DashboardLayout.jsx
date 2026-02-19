@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router';
 import useAuth from '../Hooks/useAuth';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const DashboardLayout = () => {
+    const axios = useAxiosSecure();
+    const [role, setRole] = useState(null);
+    const { user } = useAuth();
 
-    const {user} = useAuth();
+    useEffect(() => {
+        if (user?.email) {
+            axios.get('/users/role').then((res) => {
+                setRole(res.data.role);
+            })
+                .catch(error => {
+                    Swal.fire('error', 'Failed to fetch user data', error)
+                })
+        }
+    }, [user, axios]) // Dependencies are those who are used in useEffect but not defined in useEffect
 
     return (
         <div className="drawer bg-amber-50 lg:drawer-open">
@@ -44,8 +58,12 @@ const DashboardLayout = () => {
                     <li><Link to='/'>Home</Link></li>
                     <li><Link to={`/dashboard/myParcels/${user?.email}`}>My Parcels</Link></li>
                     <li><Link to={`/dashboard/paymentHistory/${user?.email}`}>Payment History</Link></li>
-                    <li><Link to={`/dashboard/rider/requests`}>Rider Requests</Link></li>
-                    <li><Link to={`/dashboard/rider/hired`}>Hired Riders</Link></li>
+
+                    {role === 'admin' && (
+                        <><li><Link to={`/dashboard/rider/requests`}>Rider Requests</Link></li>
+                            <li><Link to={`/dashboard/rider/hired`}>Hired Riders</Link></li></>
+                    )}
+
                 </ul>
             </div>
         </div>

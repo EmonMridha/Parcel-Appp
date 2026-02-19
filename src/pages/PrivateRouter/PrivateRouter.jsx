@@ -4,10 +4,10 @@ import useAuth from '../../Hooks/useAuth';
 import { Navigate, useLocation } from 'react-router';
 
 const PrivateRouter = ({ children }) => {
-    const { user,loading } = useAuth();
+    const { user, loading } = useAuth();
     const location = useLocation(); //saves the path where the user tried to go before login
 
-    if(loading) {
+    if (loading) {
         return <div>Loading...</div>
     }
 

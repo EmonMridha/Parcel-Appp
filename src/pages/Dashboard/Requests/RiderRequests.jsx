@@ -34,10 +34,10 @@ const RiderRequests = () => {
         }
     }
 
-    const handleDelete = async (id) => {
-        const res = await axios.delete(`/deleteReq/${id}`)
+    const handleReject = async (id) => {
+        const res = await axios.patch(`/rejectReq/${id}`)
         if (res.data.success) {
-            Swal.fire('Deleted successfully')
+            Swal.fire('Rejected successfully')
         } else {
             Swal.fire('Could not delete')
         }
@@ -72,11 +72,15 @@ const RiderRequests = () => {
                                                 <td class="px-4 py-3 text-sm text-gray-800 font-medium">{request.createdAt}</td>
                                                 <td class="px-4 py-3 text-sm">
 
-                                                    <button onClick={() => handleHire(request._id)} className="px-3 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-red-700">
+                                                    <button disabled={request.status === 'hired'} onClick={() => handleHire(request._id)} className={`px-3 py-1 text-xs font-medium text-white rounded 
+    ${request.status === 'hired'
+                                                            ? 'bg-gray-400 cursor-not-allowed'
+                                                            : 'bg-green-600 hover:bg-green-700'
+                                                        }`}>
                                                         {request.status === 'hired' ? ('Hired') : ('Hire')}
                                                     </button>
-                                                    <button onClick={() => handleDelete(request._id)} className="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700">
-                                                        Delete
+                                                    <button onClick={() => handleReject(request._id)} className="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded hover:bg-red-700">
+                                                        Reject
                                                     </button>
                                                 </td>
                                             </tr>
@@ -86,7 +90,7 @@ const RiderRequests = () => {
                             </table>
                         </div>
                     </div>
-                ) : (<div className='text-red-600 text-center text-2xl my-10'>Only admin can see this</div>)
+                ) : (<div className='text-red-600 text-center text-2xl my-10'>No pending requests</div>)
             }
         </div>
     );

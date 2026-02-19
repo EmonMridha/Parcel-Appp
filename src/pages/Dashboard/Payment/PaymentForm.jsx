@@ -9,12 +9,12 @@ import { useNavigate } from 'react-router';
 
 const PaymentForm = ({ parcelId }) => {
 
-    const stripe = useStripe();
-    const elements = useElements();
+    const stripe = useStripe(); // Niom rokkha
+    const elements = useElements(); // Niom rokkha
     const [error, setError] = useState('')
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // For redirection after successful payment
 
 
     // Fetch parcel info using parcelId
@@ -54,7 +54,7 @@ const PaymentForm = ({ parcelId }) => {
         // create payment method
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card', // Specify the payment method type
-            card: card
+            card: card // Card details from the CardElement
         })
 
         if (error) {
@@ -107,7 +107,7 @@ const PaymentForm = ({ parcelId }) => {
                     }
                 }
                 // any status more than 400 will be treated as error and will be caught in catch block
-                catch (error) { 
+                catch (error) {
                     const msg = error.response?.data?.message;
 
                     Swal.fire({

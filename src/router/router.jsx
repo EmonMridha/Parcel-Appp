@@ -16,6 +16,8 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import BeARider from "../pages/Rider/BeARider";
 import RiderRequests from "../pages/Dashboard/Requests/RiderRequests";
 import HiredRiders from "../pages/Dashboard/Hired/HiredRiders";
+import AdminRoute from "../pages/PrivateRouter/AdminRoute";
+import Error from "../pages/Error/Error";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +39,11 @@ export const router = createBrowserRouter([
                         <AddParcel />
                     </PrivateRouter>
                 )
+            },
+            {
+                path: '/forbidden',
+                Component: Error
+
             },
             {
                 path: 'beArider',
@@ -96,17 +103,13 @@ export const router = createBrowserRouter([
             {
                 path: 'rider/requests',
                 Component: () => (
-                    <PrivateRouter>
-                        <RiderRequests></RiderRequests>
-                    </PrivateRouter>
+                    <RiderRequests></RiderRequests>
                 )
             },
             {
                 path: 'rider/hired',
                 Component: () => (
-                    <PrivateRouter>
-                        <HiredRiders></HiredRiders>
-                    </PrivateRouter>
+                    <HiredRiders></HiredRiders>
                 )
             }
 
