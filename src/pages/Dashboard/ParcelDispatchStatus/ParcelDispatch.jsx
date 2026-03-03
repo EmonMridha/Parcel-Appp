@@ -38,34 +38,36 @@ const ParcelDispatch = () => {
                 <div className='bg-[#7fc7fa]'>
                     <h2 className='text-2xl p-4 font-bold text-white'>Pending Dispatch</h2>
 
-                    <div className='text-black overflow-x-auto'>
-                        <table className="min-w-full bg-white border border-gray-200">
-                            <thead className="bg-gray-100">
-                                <tr>
-                                    <th className="text-left py-2 px-4 border-b">Parcel ID</th>
+                    {
+                        pendingDispatch.length > 0 ? (<div className='text-black overflow-x-auto'>
+                            <table className="min-w-full bg-white border border-gray-200">
+                                <thead className="bg-gray-100">
+                                    <tr>
+                                        <th className="text-left py-2 px-4 border-b">Parcel ID</th>
 
-                                    <th className="text-left py-2 px-4 border-b">Address</th>
-                                    <th className="text-left py-2 px-4 border-b">Phone</th>
-                                    <th className="text-left py-2 px-4 border-b">Created At</th>
-                                    <th className="text-left py-2 px-4 border-b">Activity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {pendingDispatch.map((parcel, idx) => (
-                                    <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                        <td className="py-2 px-4 border-b">{parcel._id}</td>
-
-                                        <td className="py-2 px-4 border-b">{parcel.receiverAddress}</td>
-                                        <td className="py-2 px-4 border-b">{parcel.receiverNumber}</td>
-                                        <td className="py-2 px-4 border-b">{parcel.createdAt}</td>
-                                        <td className="py-2 px-4 border-b"><div className='flex gap-2.5'>
-                                            <button className="bg-[#233D4D] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View</button> <button className="bg-[#3BC1A8] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDispatch(parcel._id)}>Dispatch</button>
-                                        </div></td>
+                                        <th className="text-left py-2 px-4 border-b">Address</th>
+                                        <th className="text-left py-2 px-4 border-b">Phone</th>
+                                        <th className="text-left py-2 px-4 border-b">Created At</th>
+                                        <th className="text-left py-2 px-4 border-b">Activity</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    {pendingDispatch.map((parcel, idx) => (
+                                        <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                            <td className="py-2 px-4 border-b">{parcel._id}</td>
+
+                                            <td className="py-2 px-4 border-b">{parcel.receiverAddress}</td>
+                                            <td className="py-2 px-4 border-b">{parcel.receiverNumber}</td>
+                                            <td className="py-2 px-4 border-b">{parcel.createdAt}</td>
+                                            <td className="py-2 px-4 border-b"><div className='flex gap-2.5'>
+                                                <button className="bg-[#233D4D] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View</button> <button className="bg-[#3BC1A8] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDispatch(parcel._id)}>Dispatch</button>
+                                            </div></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>) : (<p className='text-center text-xl text-white font-semibold p-4'>No pending dispatches</p>)
+                    }
                 </div>
                 <div className='bg-[#7AAACE]'>
                     <DispatchedSection></DispatchedSection>
