@@ -18,6 +18,7 @@ import RiderRequests from "../pages/Dashboard/Requests/RiderRequests";
 import HiredRiders from "../pages/Dashboard/Hired/HiredRiders";
 import AdminRoute from "../pages/PrivateRouter/AdminRoute";
 import Error from "../pages/Error/Error";
+import ParcelDispatch from "../pages/Dashboard/ParcelDispatchStatus/ParcelDispatch";
 
 export const router = createBrowserRouter([
     {
@@ -110,6 +111,12 @@ export const router = createBrowserRouter([
                 path: 'rider/hired',
                 Component: () => (
                     <HiredRiders></HiredRiders>
+                )
+            },
+            {
+                path: 'admin/dispatch',
+                Component: () => (
+                    <ParcelDispatch></ParcelDispatch>
                 )
             }
 

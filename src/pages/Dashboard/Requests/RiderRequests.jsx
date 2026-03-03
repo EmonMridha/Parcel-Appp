@@ -28,7 +28,7 @@ const RiderRequests = () => {
                 Swal.fire('error', 'Already hired or not found');
             }
         }
-        // catch will run when any error or any 400+ status is thrown
+        // catch will run when any error or any 400+ status is thrown in the try block
         catch (err) {
             Swal.fire('error', err.response?.data?.message || 'Something went wrong');
         }

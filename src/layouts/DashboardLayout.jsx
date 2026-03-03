@@ -61,7 +61,10 @@ const DashboardLayout = () => {
 
                     {role === 'admin' && (
                         <><li><Link to={`/dashboard/rider/requests`}>Rider Requests</Link></li>
-                            <li><Link to={`/dashboard/rider/hired`}>Hired Riders</Link></li></>
+                            <li><Link to={`/dashboard/rider/hired`}>Hired Riders</Link></li>
+                            <li><Link to={`/dashboard/admin/dispatch`}>Parcel Dispatch Status</Link></li>
+                        </>
+
                     )}
 
                 </ul>
