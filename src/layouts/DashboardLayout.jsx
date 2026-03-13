@@ -67,6 +67,12 @@ const DashboardLayout = () => {
 
                     )}
 
+                    {
+                        role === 'rider' && (
+                            <li><Link to={`/dashboard/rider/requests`}>Jobs</Link></li>
+                        )
+                    }
+
                 </ul>
             </div>
         </div>

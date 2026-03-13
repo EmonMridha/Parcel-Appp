@@ -21,7 +21,7 @@ const ParcelDetails = () => {
         }
         fetchSingleParcel();
     }, [axios, id])
-
+    console.log(parcel);
     return (
         <div>
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6 border border-gray-200">

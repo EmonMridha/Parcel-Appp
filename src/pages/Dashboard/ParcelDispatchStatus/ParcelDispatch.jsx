@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import DispatchedSection from './DispatchedSection';
 import DeliveredSection from './DeliveredSection';
 
+
 const ParcelDispatch = () => {
     const axios = useAxiosSecure();
     const [pendingDispatch, setPendingDispatch] = useState([]);
@@ -11,7 +12,7 @@ const ParcelDispatch = () => {
     // useEffect is used to fetch data when the component mounts. It runs the function inside it after the component is rendered for the first time.
     useEffect(() => {
         const pendingDispatch = async () => {
-            const response = await axios.get('/pendingParcels')
+            const response = await axios.get('/pendingParcels') // Fetching pending parcels from the server
             setPendingDispatch(response.data)
         }
         pendingDispatch();
@@ -48,7 +49,7 @@ const ParcelDispatch = () => {
                                         <th className="text-left py-2 px-4 border-b">Address</th>
                                         <th className="text-left py-2 px-4 border-b">Phone</th>
                                         <th className="text-left py-2 px-4 border-b">Created At</th>
-                                        <th className="text-left py-2 px-4 border-b">Activity</th>
+                                        <th className="text-left py-2 px-4 border-b"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,13 +61,13 @@ const ParcelDispatch = () => {
                                             <td className="py-2 px-4 border-b">{parcel.receiverNumber}</td>
                                             <td className="py-2 px-4 border-b">{parcel.createdAt}</td>
                                             <td className="py-2 px-4 border-b"><div className='flex gap-2.5'>
-                                                <button className="bg-[#233D4D] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View</button> <button className="bg-[#3BC1A8] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDispatch(parcel._id)}>Dispatch</button>
+                                                <button className="bg-[#3BC1A8] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDispatch(parcel._id)}>Dispatch</button>
                                             </div></td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>) : (<p className='text-center text-xl text-white font-semibold p-4'>No pending dispatches</p>)
+                        </div>) : (<p className='text-center bg-white text-xl text-black font-semibold p-4'>No pending dispatches</p>)
                     }
                 </div>
                 <div className='bg-[#7AAACE]'>

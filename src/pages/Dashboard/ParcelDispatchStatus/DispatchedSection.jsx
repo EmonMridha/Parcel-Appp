@@ -7,12 +7,12 @@ const DispatchedSection = () => {
 
     useEffect(() => {
         const dispatchedParcels = async () => {
-            const response = await axios.get('/dispatchedParcels')
+            const response = await axios.get('/inWarehouseParcels') // Fetching inWarehouse parcels from the server
             setDispatchedParcels(response.data)
         }
         dispatchedParcels();
     }, [axios])
-    console.log(dispatchedParcels);
+
     return (
         <div>
             <h1 className='text-2xl text-white p-4  font-bold bg-[#7AAACE]'>Dispatched</h1>
@@ -27,7 +27,7 @@ const DispatchedSection = () => {
                                     <th className="text-left py-2 px-4 border-b">Address</th>
                                     <th className="text-left py-2 px-4 border-b">Phone</th>
                                     <th className="text-left py-2 px-4 border-b">Created At</th>
-                                    <th className="text-left py-2 px-4 border-b">Activity</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,7 +39,7 @@ const DispatchedSection = () => {
                                         <td className="py-2 px-4 border-b">{parcel.receiverNumber}</td>
                                         <td className="py-2 px-4 border-b">{parcel.createdAt}</td>
                                         <td className="py-2 px-4 border-b"><div className='flex gap-2.5'>
-                                            <button className="bg-[#233D4D] cursor-pointer hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View</button> 
+
                                         </div></td>
                                     </tr>
                                 ))}

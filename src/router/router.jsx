@@ -89,7 +89,6 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'parcelDetails/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/parcel/${params.id}`),
                 Component: ParcelDetails
             },
             {
