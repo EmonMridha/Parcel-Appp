@@ -64,12 +64,11 @@ const DashboardLayout = () => {
                             <li><Link to={`/dashboard/rider/hired`}>Hired Riders</Link></li>
                             <li><Link to={`/dashboard/admin/dispatch`}>Parcel Dispatch Status</Link></li>
                         </>
-
                     )}
 
                     {
                         role === 'rider' && (
-                            <li><Link to={`/dashboard/rider/requests`}>Jobs</Link></li>
+                            <li><Link to={`/dashboard/rider/jobs`}>Jobs</Link></li>
                         )
                     }
 
