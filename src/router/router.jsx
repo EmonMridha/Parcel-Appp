@@ -85,7 +85,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: `myParcels/:email`,
-                loader: ({ params }) => fetch(`http://localhost:5000/parcels/${params.email}`),
+                loader: ({ params }) => fetch(`https://safe-ship-server.vercel.app/parcels/${params.email}`),
                 Component: MyParcels
             },
             {
@@ -98,7 +98,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'paymentHistory/:email',
-                loader: ({ params }) => fetch(`http://localhost:5000/payments/${params.email}`),
+                loader: ({ params }) => fetch(`https://safe-ship-server.vercel.app/payments/${params.email}`),
                 Component: PaymentHistory
             },
             {
