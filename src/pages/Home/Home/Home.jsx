@@ -4,6 +4,7 @@ import OurServices from '../OurServices/OurServices';
 import Brands from '../Brands/Brands';
 import Extra from '../Extra/Extra';
 import FAQ from '../FAQ/FAQ';
+import Stats from '../stats/Stats';
 
 const Home = () => {
     return (
@@ -19,6 +20,9 @@ const Home = () => {
             </div>
             <div data-aos='flip-left'>
                 <Extra />
+            </div>
+            <div data-aos='fade-up'>
+                <Stats />
             </div>
             <div data-aos='flip-right'>
                 <FAQ />

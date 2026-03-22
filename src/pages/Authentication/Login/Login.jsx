@@ -10,9 +10,9 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation(); // saving the path where the user tried to go before login
 
-    const from = location.state?.from ||'/'; // If user tried to go to a page before login send him there. If didn't tried to go then send him to the home
+    const from = location.state?.from || '/'; // If user tried to go to a page before login send him there. If didn't tried to go then send him to the home
 
-    const onSubmit = (data) => {
+    const submit = (data) => {
         signIn(data.email, data.password)
             .then(res => {
                 Swal.fire({
@@ -56,11 +56,10 @@ const Login = () => {
             });
     }
 
-
     return (
         <div className='text-black h-100 p-10'>
             <h1 className='text-center text-3xl mb-10 text-yellow-700 font-bold'>Login</h1>
-            <form className='bg-white p-10 rounded-4xl' onSubmit={handleSubmit(onSubmit)}>
+            <form className='bg-white p-10 rounded-4xl' onSubmit={handleSubmit(submit)}>
                 <fieldset className="fieldset">
 
                     <label className="label text-xl">Email</label>
