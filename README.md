@@ -10,6 +10,9 @@ https://safeship-5b311.web.app/
 
 ---
 
+## Backend Live Link
+https://safe-ship-server.vercel.app/
+
 ## 📖 Overview
 
 SafeShip simplifies parcel delivery by providing an easy-to-use platform for customers to create delivery requests, track parcel status, and manage deliveries. Delivery personnel can accept and update parcel statuses, while administrators can oversee users, parcels, and delivery operations through a dedicated dashboard.
